@@ -1,0 +1,17 @@
+
+# Install Headless Drupal 8
+curl -sS https://getcomposer.org/installer | php
+composer global require drush/drush:dev-master
+drush quick-drupal --core=drupal-8.0.x --account-name=admin --account-pass=password --root=./drupal
+cd drupal
+drush en rest hal basic_auth -y
+echo "header('Access-Control-Allow-Origin: 127.0.0.1:8080');" >> sites/default/settings.php
+echo "header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");" >> sites/default/settings.php
+echo "header('Access-Control-Allow-Credentials: true');" >> sites/default/settings.php
+echo "header('Access-Control-Allow-Headers: Authorization, access_token, Content-Type');" >> sites/default/settings.php
+
+# Install the TodoMVC Backbone.js based Client
+cd ../client
+sudo apt-get node-js -y
+npm install
+
